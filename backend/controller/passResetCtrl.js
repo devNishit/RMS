@@ -8,7 +8,7 @@ import { transporter } from '../config/nodeMailerConf.js';
 
 // Forgot Password
 export const forgotPass = async(req,res,next)=>{
-    let user =  await User.findByUsername(req.body.email);
+  let user = await User.findOne({ email: req.body.email });
     if(!user){
       console.log("not");
       return next(new expressError(400, "Invaild Email"));
@@ -21,7 +21,7 @@ export const forgotPass = async(req,res,next)=>{
     async function main() {
       const info = await transporter.sendMail({
         from:process.env.GMAIL,
-        to:user.username,
+        to:user.email,
         subject:"Reset Password",
         html:`<h1>Reset Password</h1>
               <p>You can reset password </p>
@@ -49,7 +49,7 @@ export const forgotPass = async(req,res,next)=>{
   export const resetPass = async(req,res)=>{
     const decode = jwt.verify(req.params.token,process.env.JWTSECRET);
     let user = await User.findById(decode.id);
-    await user.setPassword(req.body.password);
+    user.password= req.body.password;
     await user.save();
     res.json(`password succecfully reset`);
 };

@@ -1,16 +1,42 @@
 import User from '../models/user.js';
+import genToken from '../utils/generateToken.js';
+import bcrypt from 'bcryptjs';
 
 // register new user
 export const registerUser = async(req,res,next)=>{
-    let {username, password, name, role, mobile, address, joiningDate, salary, shiftTimings} = req.body;
-    let newUser = new User({username, name, role, mobile, address, joiningDate, salary, shiftTimings});
-    await User.register(newUser,password);
+  
+    let {email, password, name, role, mobile, address, joiningDate, salary, shiftTimings} = req.body;
+    
+    // exists user
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: 'User already exists' });
+    }
+
+    let newUser = new User({email, name, password, role, mobile, address, joiningDate, salary, shiftTimings});
+    await newUser.save();
     res.json('New user register');  
   };
 
-// login
-  export const login = (req,res)=>{
-    res.send("Login Successful");
+// gentate login token
+  export const login = async(req,res,next)=>{
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ message: 'User not found' });
+    }
+
+    // Compare the entered password with the hashed password
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Invalid credentials' });
+    }
+
+    const token = genToken(user);
+    res.status(200).json({
+      message: 'Login successful',
+      token, // Send the token to the client
+    });
   };
 
 // render user edit form

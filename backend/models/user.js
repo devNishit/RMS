@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
-import passportLocalMomgoose from 'passport-local-mongoose';
 const { Schema } = mongoose;
+import bcrypt from 'bcryptjs';
 
 const userSchema = new Schema({
-    username:{
+    email:{
         type:String,
         required:true,
         unique: true,
@@ -18,6 +18,7 @@ const userSchema = new Schema({
         required:true,
         default:'customer'
     },
+    password: { type: String, required: true },
     mobile: String,
     address: String,
     joiningDate: Date,
@@ -30,6 +31,12 @@ const userSchema = new Schema({
 },
 { timestamps: true })
 
-userSchema.plugin(passportLocalMomgoose, { usernameField: 'username' });
+// Hash password before saving
+userSchema.pre("save", async function (next) {
+    if (!this.isModified("password")) return next();
+    this.password = await bcrypt.hash(this.password, 10);
+    next();
+  });
+
 const User = mongoose.model('User',userSchema);
 export default User ;

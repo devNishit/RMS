@@ -1,8 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import session from 'express-session';
-import passport from 'passport';
+import cors from 'cors';
 import User from './models/user.js';
 import userRouter from './routes/userRouter.js';
 import customerRouter from './routes/customerRouter.js';
@@ -17,6 +16,7 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+app.use(cors());
 
 // Database connection
 async function main() {
@@ -25,26 +25,6 @@ async function main() {
 
 main().catch(err => console.log(err));
 
-// Session
-const sessionInfo = {
-  secret:process.env.SECRET,
-  resave: false,
-  saveUninitialized: true,
-  cookie: {
-    maxAge: 3 * 24 * 60 * 60 * 1000, // 3 days in milliseconds
-  }
-}
-
-app.use(session(sessionInfo));
-
-// Passport
-app.use(passport.initialize());
-app.use(passport.session());
-
-// Passport setup
-passport.use(User.createStrategy());
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
 
 // Basic Routes
 app.get('/', (req, res) => {
