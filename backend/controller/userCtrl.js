@@ -56,7 +56,14 @@ export const registerUser = async(req,res,next)=>{
 
 // delete user
     export const deleteUser = async (req,res)=>{
+      console.log("userBhai", req.body)
       let {id} = req.body;
       let deletedUser = await User.findByIdAndDelete(id);
       res.json("user deleted");
     };
+
+// featch user
+    export const userList = async(req,res)=>{
+      let list = await User.find();
+      res.json({'data':list})
+    }

@@ -26,7 +26,7 @@ export const forgotPass = async(req,res,next)=>{
         html:`<h1>Reset Password</h1>
               <p>You can reset password </p>
               <br/><br/>
-        <a href="http://localhost:5050/user/password/reset/${resetToken}" 
+        <a href="http://localhost:5173/genPass/${resetToken}" 
      style=" margin: 10px 20px; padding: 10px 20px; background-color: red; color: white; text-decoration: none; border-radius: 5px;">
      Reset Password
   </a> <br/><br/>

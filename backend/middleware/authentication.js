@@ -7,6 +7,8 @@ dotenv.config();
 
 export const verifyToken = (req, res, next) => {
     const token = req.header("Authorization");
+//    token = token.split(" ").length === 2 ? tokenParts[1] : token
+    console.log("ok",token);
     if (!token) return next(new expressError(401, "Access denied"))
    
 

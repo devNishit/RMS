@@ -1,0 +1,54 @@
+/* Base styles */
+nav {
+    background: #333;
+    padding: 10px 20px;
+  }
+  
+  nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  nav ul li {
+    padding: 10px;
+  }
+  
+  nav ul li a {
+    text-decoration: none;
+    color: white;
+    padding: 8px 15px;
+    transition: background 0.3s;
+  }
+  
+  nav ul li a:hover {
+    background: #555;
+    border-radius: 5px;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    nav ul {
+      flex-direction: column;
+      align-items: flex-start;
+      display: none;
+    }
+    
+    .menu-toggle {
+      display: block;
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: white;
+      cursor: pointer;
+    }
+    
+    .menu-open nav ul {
+      display: flex;
+    }
+  }
+  
