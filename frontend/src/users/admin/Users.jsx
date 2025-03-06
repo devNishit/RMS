@@ -21,9 +21,7 @@ export default function Users() {
 
     const handleDelete = async (id) => {
         try {
-            const token = localStorage.getItem("Authorization");
-            console.log("fro", token);
-            await axios.delete(`http://localhost:5050/user/delete`, { data: { id } });
+            await axios.delete(`http://localhost:5050/user/delete`, {headers:{"Authorization":localStorage.getItem("Authorization")},  data: { id } });
             fetchUsers();
         } catch (error) {
             console.error('Error deleting user:', error);
@@ -33,7 +31,7 @@ export default function Users() {
     return (
         <div className="users-container">
             <h2 className="users-heading">Users List</h2>
-            <button className="add-user-btn" onClick={() => window.location.href='/add-user'}>Add New User</button>
+            <button className="add-user-btn" onClick={() => window.location.href='/addUser'}>Add New User</button>
             <table className="users-table" border="1" width="100%">
                 <thead>
                     <tr>

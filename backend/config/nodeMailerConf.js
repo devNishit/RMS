@@ -8,4 +8,4 @@ export const  transporter = nodemailer.createTransport({
       user:process.env.GMAIL,
       pass:process.env.GMAILPASS
     }
-  }) 
+  })

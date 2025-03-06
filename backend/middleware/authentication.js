@@ -15,7 +15,7 @@ export const verifyToken = (req, res, next) => {
     try {
         const decoded = jwt.verify(token.replace("Bearer ", ""), process.env.JWT_TOKEN_SECRET);
         req.user = decoded;
-      
+        console.log("aaa", req.user);
         next();
     } catch (error) {
         next(new expressError(400, "Invalid token"));

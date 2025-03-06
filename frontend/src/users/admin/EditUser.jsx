@@ -21,7 +21,7 @@ export default function EditUser() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5050/user/editUser/${id}`)
+      .get(`http://localhost:5050/user/editUser/${id}`, {headers:{"Authorization":localStorage.getItem("Authorization")} })
       .then((response) => {
         setUser(response.data);
         setLoading(false);
@@ -43,7 +43,7 @@ export default function EditUser() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .put(`http://localhost:5050/user/editUser/${id}`, user)
+      .put(`http://localhost:5050/user/editUser/${id}`, user , {headers:{"Authorization":localStorage.getItem("Authorization")}} )
       .then((response) => {
         navigate('/users');
       })
@@ -81,9 +81,13 @@ export default function EditUser() {
             className="form-select"
             required
           >
-            <option value="customer">Customer</option>
-            <option value="admin">Admin</option>
-            <option value="manager">Manager</option>
+                        <option value="admin">Admin</option>
+                        <option value="manager">Manager</option>
+                        <option value="cheaf">Cheaf</option>
+                        <option value="waiter">Waiter</option>
+                        <option value="cashier">Cashier</option>
+                        <option value="deliveryPerson">Delivery Person</option>
+                        <option value="customer">Customer</option>
           </select>
         </div>
         <div className="form-group">

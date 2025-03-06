@@ -5,22 +5,19 @@ import { registerUser,login, editform, updateUser,deleteUser, userList } from '.
 import { verifyToken, verifyRoles } from '../middleware/authentication.js';
 
 // register //this accecss only by admin and manager
-router.post('/register',wrapAsync(registerUser));
-// router.post('/register', verifyToken, verifyRoles(['admin']),wrapAsync(registerUser));
+router.post('/register', verifyToken, verifyRoles(['admin']),wrapAsync(registerUser));
 
 // login
 router.post('/login', wrapAsync(login))
 
 // edit user //this accecss only by admin and manager
 router.route('/editUser/:id')
-.get(wrapAsync(editform))
-.put(wrapAsync(updateUser))
-// .get(verifyToken, verifyRoles(['admin']),wrapAsync(editform))
-// .put( verifyToken, verifyRoles(['admin']),wrapAsync(updateUser))
+.get(verifyToken, verifyRoles(['admin']),wrapAsync(editform))
+.put( verifyToken, verifyRoles(['admin']),wrapAsync(updateUser))
 
   // Delete user //this accecss only by admin and manager
-  // router.delete('/delete', verifyToken, verifyRoles(['admin']), wrapAsync(deleteUser))
-  router.delete('/delete',wrapAsync(deleteUser))
+  router.delete('/delete', verifyToken, verifyRoles(['admin']), wrapAsync(deleteUser))
+ 
 
   // Featch Users
   router.get('/list', wrapAsync(userList) )

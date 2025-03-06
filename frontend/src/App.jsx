@@ -9,6 +9,8 @@ import Login from './users/Login';
 import EditUser from './users/admin/EditUser';
 import ResetPass from './users/ResetPass';
 import GenratePass from './users/GenratePass';
+import LogoutButton from './users/logout';
+import AddUser from './users/admin/AddUser';
 
 function App() {
 
@@ -35,6 +37,9 @@ function App() {
             <li>
               <Link to="/reservations">Reservations</Link>
             </li>
+            <li>
+              <Link to="/logout">Log Out</Link>
+            </li>
           </ul>
         </nav>
 
@@ -46,6 +51,8 @@ function App() {
           <Route path='/edit-user/:id' element={<EditUser/>}/>
           <Route path='/reset-pass' element={<ResetPass/>}/>
           <Route path='/genPass/:id' element={<GenratePass/>}/>
+          <Route path='/logout' element={<LogoutButton/>}/>
+          <Route path='/addUser' element={<AddUser/>}/>
           
         </Routes>
       </Router>
