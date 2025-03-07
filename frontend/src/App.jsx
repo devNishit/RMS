@@ -11,6 +11,10 @@ import ResetPass from './users/ResetPass';
 import GenratePass from './users/GenratePass';
 import LogoutButton from './users/logout';
 import AddUser from './users/admin/AddUser';
+import AddMenuItem from './menu/AddMenuItem';
+import EditMenu from './menu/EditMenu';
+import ManageMenu from './menu/ManageMenu';
+import MenuList from './menu/MenuList';
 
 function App() {
 
@@ -26,7 +30,7 @@ function App() {
               <Link to="/users">Users</Link>
             </li>
             <li>
-              <Link to="/items">Items</Link>
+              <Link to="/menu">Menu</Link>
             </li>
             <li>
               <Link to="/orders">Orders</Link>
@@ -53,6 +57,10 @@ function App() {
           <Route path='/genPass/:id' element={<GenratePass/>}/>
           <Route path='/logout' element={<LogoutButton/>}/>
           <Route path='/addUser' element={<AddUser/>}/>
+          <Route path='/menu/add' element={<AddMenuItem/>}/>
+          <Route path='/menu/edit/:id' element={<EditMenu/>}/>
+          <Route path='/menu' element={<ManageMenu/>}/>
+          <Route path='/menu/list' element={<MenuList/>}/>
           
         </Routes>
       </Router>

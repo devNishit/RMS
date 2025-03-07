@@ -2,13 +2,12 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import User from './models/user.js';
 import userRouter from './routes/userRouter.js';
 import customerRouter from './routes/customerRouter.js';
 import passResetRouter from './routes/passResetRouter.js';
-
+import menuRouter from './routes/menuRouter.js';
 import { globalErrorHandler } from './utils/globalErrorHandler.js';
-import expressError from './utils/expressError.js';
+
 
 dotenv.config();
 const app = express();
@@ -38,6 +37,9 @@ app.use('/user/customer',customerRouter);
 
 //Reset Passoword
 app.use('/user/password',passResetRouter);
+
+//Menu 
+app.use('/menu',menuRouter);
 
 
 // Error Handling Middleware

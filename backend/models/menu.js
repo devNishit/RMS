@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const menuSchema = new Schema({
-    name:{
+    item:{
         type:String,
         required:true,
     },
@@ -15,8 +15,9 @@ const menuSchema = new Schema({
         required:true,
     }],
     category:{
-        type: 'ObjectId', 
-        ref: 'MenuCategory',
+        // type: 'ObjectId', 
+        // ref: 'MenuCategory',
+        type:"String",
         required:true,
     },
     price:{
@@ -24,7 +25,7 @@ const menuSchema = new Schema({
         required:true
     },
     image:{
-        path:String,
+        public_id:String,
         url:{type:String, default:'noImage.jpg'}
     },
     available:{
@@ -35,4 +36,5 @@ const menuSchema = new Schema({
     
 })
 
-export default Menu = mongoose.model('Menu',menuSchema);
+const Menu = mongoose.model('Menu',menuSchema);
+export default Menu;
